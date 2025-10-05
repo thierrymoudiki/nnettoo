@@ -50,7 +50,7 @@
 #' @param scale.inputs If `TRUE`, inputs are scaled by subtracting the column
 #' means and dividing by their respective standard deviations. If `lambda`
 #' is not `NULL`, scaling is applied after Box-Cox transformation.
-#' @param ... Other arguments passed to [nnet::nnet()] for `nnetar`.
+#' @param ... Other arguments passed to [nnet::nnettoo()] for `nnetar`.
 #'
 #' @return Returns an object of class `nnetar`.
 #'
@@ -380,7 +380,7 @@ nnetar <- function(
 avnnet <- function(x, y, repeats, linout = TRUE, trace = FALSE, ...) {
   mods <- list()
   for (i in 1:repeats) {
-    mods[[i]] <- nnet::nnet(x, y, linout = linout, trace = trace, ...)
+    mods[[i]] <- nnet::nnettoo(x, y, linout = linout, trace = trace, ...)
   }
   return(structure(mods, class = "nnetarmodels"))
 }
@@ -396,7 +396,7 @@ oldmodel_avnnet <- function(x, y, size, model) {
   mods <- list()
   for (i in 1:repeats) {
     args$Wts <- model$model[[i]]$wts
-    mods[[i]] <- do.call(nnet::nnet, args)
+    mods[[i]] <- do.call(nnet::nnettoo, args)
   }
   return(structure(mods, class = "nnetarmodels"))
 }
